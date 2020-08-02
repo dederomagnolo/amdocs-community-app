@@ -12,7 +12,7 @@ export default function Login({ history }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!username) return;
+/*     if (!username) return; */
 
     setLoad(true);
 
