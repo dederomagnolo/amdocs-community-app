@@ -18,6 +18,7 @@ export default function Main({ match }) {
   const [newNotification, setNewNotification] = useState(false);
   const [selected, setSelected] = useState("");
   const [info, setInfo] = useState(false);
+  const [admin, setAdmin] = useState(true);
 
   //useEffect que faz a chama API
   useEffect(() => {
@@ -107,7 +108,17 @@ export default function Main({ match }) {
       avatar: avatars[3],
       desired: "cool hat",
       clothSize: "40",
-      shoesSize: 38
+      shoesSize: 41
+    },
+    {
+      _id: 5,
+      name: "José Roberto Reis",
+      age: "71",
+      bio: "Lorem lorem ipsum ispsusm alo vose nachos nachos eu gosto de nachos",
+      avatar: avatars[4],
+      desired: "cool hat",
+      clothSize: "46",
+      shoesSize: 42
     }
   ]
 

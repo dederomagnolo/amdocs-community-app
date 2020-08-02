@@ -11,19 +11,23 @@ export default function Login({ history }) {
   const [load, setLoad] = useState(false);
 
   async function handleSubmit(e) {
+    const admin = true;
     e.preventDefault();
-/*     if (!username) return; */
+    /* if (!username) return; */
 
     setLoad(true);
 
+
+    history.push(`/main`);
+
+    
     /* const response = await api.post('/devs', {
       username,
     });
 
     const { _id, avatar } = response.data;
     localStorage.setItem('user_avatar', avatar); */
-
-    history.push(`/main`);
+    
   }
 
   return (
