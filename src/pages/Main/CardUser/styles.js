@@ -50,3 +50,8 @@ export const Button = styled.button`
 export const Text = styled.div`
   color: ${(props) => props.color.secondaryColor};
 `
+
+export const BoldText = styled.div`
+    font-weigth: bold;
+    color: ${(props) => props.color.textColor};
+`

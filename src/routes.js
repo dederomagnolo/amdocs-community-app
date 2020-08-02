@@ -14,8 +14,8 @@ export default function Routes() {
     <>
       <GlobalStyle theme={theme.colors}/>
       <BrowserRouter>
-        <Route path="/" exact component={Main} />
-        <Route path="/dev/:id" component={Main} />
+        <Route path="/" exact component={Login} />
+        <Route path="/main" component={Main} />
       </BrowserRouter>
     </>
   );

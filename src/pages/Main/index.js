@@ -15,6 +15,7 @@ export default function Main({ match }) {
   const [users, setUsers] = useState([]);
   const [matchDev, setMatchDev] = useState(null);
   const [newNotification, setNewNotification] = useState(false);
+  const [selected, setSelected] = useState("");
 
   //useEffect que faz a chama API
   useEffect(() => {
@@ -53,14 +54,6 @@ export default function Main({ match }) {
     setUsers(users.filter((user) => user._id !== id));
   }
 
-  async function handleDislike(id) {
-    await api.post(`/devs/${id}/dislikes`, null, {
-      headers: { user: match.params.id },
-    });
-
-    setUsers(users.filter((user) => user._id !== id));
-  }
-
   async function handleViewNotification() {
     setNewNotification(false);
     await api.put('/notifications', null, {
@@ -68,30 +61,47 @@ export default function Main({ match }) {
     });
   }
 
-  const userMock = [
+  const handleAdopt = (adoptable) => {
+    setSelected(adoptable);
+    setMatchDev(true);
+  }
+
+  const adoptables = [
     {
       _id: 1,
       name: "Lúcia Freitas",
       bio: "Lorem lorem ipsum ispsusm alo vose nachos nachos eu gosto de nachos",
-      avatar: avatars[0]
+      avatar: avatars[0],
+      desired: "cool hat",
+      clothSize: "40",
+      shoesSize: 38
     },
     {
       _id: 2,
       name: "Sara Ramos",
       bio: "Lorem lorem ipsum ispsusm alo vose nachos nachos eu gosto de nachos",
-      avatar: avatars[1]
+      avatar: avatars[1],
+      desired: "cool hat",
+      clothSize: "40",
+      shoesSize: 38
     },
     {
       _id: 3,
       name: "Vovó Debinha",
       bio: "Lorem lorem ipsum ispsusm alo vose nachos nachos eu gosto de nachos",
-      avatar: avatars[2]
+      avatar: avatars[2],
+      desired: "cool hat",
+      clothSize: "40",
+      shoesSize: 38
     },
     {
       _id: 4,
       name: "Pedro Ramalho",
       bio: "Lorem lorem ipsum ispsusm alo vose nachos nachos eu gosto de nachos",
-      avatar: avatars[3]
+      avatar: avatars[3],
+      desired: "cool hat",
+      clothSize: "40",
+      shoesSize: 38
     }
   ]
 
@@ -103,15 +113,14 @@ export default function Main({ match }) {
         user={match.params.id}
       />
       <Content>
-        {userMock.length > 0 ? (
+        {adoptables.length > 0 ? (
           <ul id="card-users">
-            {userMock.map((userMock) => (
+            {adoptables.map((adopatable) => (
               <Card
-                key={userMock._id}
-                user={userMock}
+                key={adopatable._id}
+                user={adopatable}
                 styles={theme}
-                like={(id) => handleLike(id)}
-                dislike={(id) => handleDislike(id)}
+                adopt={() => handleAdopt(adopatable)}
               />
             ))}
           </ul>
@@ -119,7 +128,7 @@ export default function Main({ match }) {
           <Alert>Não há perfis ainda.</Alert>
         )}
         {matchDev && (
-          <MatchModal user={matchDev} onClose={() => setMatchDev(null)} />
+          <MatchModal user={selected} onClose={() => setMatchDev(null)} />
         )}
       </Content>
       <FooterColoredRow />

@@ -4,9 +4,9 @@ export default {
     primaryColor: '#ff5684',
     secondaryColor: '#e4e6eb',
     thirdyColor: '#fd297b',
-    bgColor: '#2e2e41',
+    bgColor: '#11112d',
     textColor: '#e4e6eb',
-    borderColor: '#333333',
+    borderColor: '#2e2e41' ,
     cardColor: '#2e2e41',
   },
 };
