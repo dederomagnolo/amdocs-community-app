@@ -6,8 +6,9 @@ import { FooterColoredRow } from '../Login/styles';
 import Header from '../../components/Header';
 import Card from './CardUser';
 import MatchModal from './MatchModal';
+import InfoModal from './infoModal';
+import FixedButton from './FixedButton';
 import {avatars} from '../../data';
-
 import { Container, Content, Alert } from './styles';
 
 export default function Main({ match }) {
@@ -16,6 +17,7 @@ export default function Main({ match }) {
   const [matchDev, setMatchDev] = useState(null);
   const [newNotification, setNewNotification] = useState(false);
   const [selected, setSelected] = useState("");
+  const [info, setInfo] = useState(false);
 
   //useEffect que faz a chama API
   useEffect(() => {
@@ -127,11 +129,12 @@ export default function Main({ match }) {
         ) : (
           <Alert>Não há perfis ainda.</Alert>
         )}
-        {matchDev && (
+        {matchDev ? (
           <MatchModal user={selected} onClose={() => setMatchDev(null)} />
-        )}
+        ) : <FixedButton styles={theme} onClick={() => setInfo(true)} />}
+        {info && <InfoModal onClose={() => setInfo(null)}/>}
       </Content>
-      <FooterColoredRow />
+      <FooterColoredRow/>
     </Container>
   );
 }

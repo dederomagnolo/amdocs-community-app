@@ -4,10 +4,11 @@ import { Container, Avatar, Button } from './styles';
 export default function Match({ user, onClose }) {
   return (
     <Container>
+      <strong>{`Do you want to adopt ${user.name} ?`}</strong>
       <Avatar src={user.avatar} alt=""/>
-      <strong>{user.name}</strong>
       <p>{user.bio}</p>
-      <Button type= "button" onClick={onClose}>FECHAR</Button>
+      <Button type= "button" onClick={onClose}>Adopt</Button>
+      <Button type= "button" onClick={onClose}>Go back</Button>
     </Container>
   );
 }
