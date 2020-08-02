@@ -72,6 +72,7 @@ export default function Main({ match }) {
     {
       _id: 1,
       name: "Lúcia Freitas",
+      age: "68",
       bio: "Lorem lorem ipsum ispsusm alo vose nachos nachos eu gosto de nachos",
       avatar: avatars[0],
       desired: "cool hat",
@@ -81,6 +82,7 @@ export default function Main({ match }) {
     {
       _id: 2,
       name: "Sara Ramos",
+      age: "66",
       bio: "Lorem lorem ipsum ispsusm alo vose nachos nachos eu gosto de nachos",
       avatar: avatars[1],
       desired: "cool hat",
@@ -90,6 +92,7 @@ export default function Main({ match }) {
     {
       _id: 3,
       name: "Vovó Debinha",
+      age: "68",
       bio: "Lorem lorem ipsum ispsusm alo vose nachos nachos eu gosto de nachos",
       avatar: avatars[2],
       desired: "cool hat",
@@ -99,6 +102,7 @@ export default function Main({ match }) {
     {
       _id: 4,
       name: "Pedro Ramalho",
+      age: "71",
       bio: "Lorem lorem ipsum ispsusm alo vose nachos nachos eu gosto de nachos",
       avatar: avatars[3],
       desired: "cool hat",
