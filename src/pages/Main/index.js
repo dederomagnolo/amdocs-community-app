@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import io from 'socket.io-client';
 import api from '../../services/api';
 import { ThemeContext } from '../../contexts/themeContext';
 import { FooterColoredRow } from '../Login/styles';
@@ -13,60 +12,28 @@ import { Container, Content, Alert } from './styles';
 
 export default function Main({ match }) {
   const { theme } = useContext(ThemeContext);
-  const [users, setUsers] = useState([]);
-  const [matchDev, setMatchDev] = useState(null);
+  const [registers, setRegisters] = useState(null);
+  const [adoptMatch, setAdoptMatch] = useState(null);
   const [newNotification, setNewNotification] = useState(false);
   const [selected, setSelected] = useState("");
   const [info, setInfo] = useState(false);
-  const [admin, setAdmin] = useState(true);
 
-  //useEffect que faz a chama API
-  useEffect(() => {
-    api
-      .get('/devs', {
+  useEffect(async () => {
+    try{
+      const registersResponse = await api.get('/registers', {
         headers: {
-          user: match.params.id,
-        },
-      })
-      .then((response) => {
-        setNewNotification(response.data.notification);
-        setUsers(response.data.users);
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNWU4MmI1MGZjNTQwMTUxNGNkOWMzNiIsImlhdCI6MTYwMDAyOTQ2MSwiZXhwIjoxNjAwMTE1ODYxfQ.n1GEKB9obB7pBs6GHUSWxk2KP4CQTbQBhrOLA-H-RPs"
+        }
       });
-  }, [match.params.id]);
-
-  //useEffect se conecta com o socket.io
-  useEffect(() => {
-    const socket = io('http://localhost:3333', {
-      query: { user: match.params.id },
-    });
-
-    socket.on('match', (dev) => {
-      setMatchDev(dev);
-    });
-
-    socket.on('notification', () => {
-      setNewNotification(true);
-    });
-  }, [match.params.id]);
-
-  async function handleLike(id) {
-    await api.post(`/devs/${id}/likes`, null, {
-      headers: { user: match.params.id },
-    });
-
-    setUsers(users.filter((user) => user._id !== id));
-  }
-
-  async function handleViewNotification() {
-    setNewNotification(false);
-    await api.put('/notifications', null, {
-      headers: { user: match.params.id },
-    });
-  }
+      setRegisters(registersResponse);
+    } catch(err) {
+      console.log(err);
+    }
+  }, [])
 
   const handleAdopt = (adoptable) => {
     setSelected(adoptable);
-    setMatchDev(true);
+    setAdoptMatch(true);
   }
 
   const adoptables = [
@@ -126,7 +93,7 @@ export default function Main({ match }) {
     <Container>
       <Header
         notification={newNotification}
-        viewNewNotification={handleViewNotification}
+        viewNewNotification={true}
         user={match.params.id}
       />
       <Content>
@@ -142,10 +109,10 @@ export default function Main({ match }) {
             ))}
           </ul>
         ) : (
-          <Alert>Não há perfis ainda.</Alert>
+          <Alert>Sorry, try again later :(</Alert>
         )}
-        {matchDev ? (
-          <MatchModal user={selected} onClose={() => setMatchDev(null)} />
+        {adoptMatch ? (
+          <MatchModal user={selected} onClose={() => setAdoptMatch(null)} />
         ) : <FixedButton styles={theme} onClick={() => setInfo(true)} />}
         {info && <InfoModal onClose={() => setInfo(null)}/>}
       </Content>
